@@ -125,20 +125,58 @@
       margin-top: 5px;
     }
     .cover-scroll {
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.28);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       position: relative;
+    }
+    /* Apple Magic Mouse */
+    .apple-mouse {
+      width: 28px;
+      height: 44px;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 14px 14px 10px 10px;
+      position: relative;
+      background: linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+      backdrop-filter: blur(4px);
+    }
+    /* Naht in der Mitte oben */
+    .apple-mouse::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 40%;
+      background: rgba(255,255,255,0.15);
+    }
+    /* Scroll-Punkt animiert */
+    .apple-mouse-dot {
+      position: absolute;
+      top: 28%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      animation: mouse-scroll 1.8s ease-in-out infinite;
+    }
+    @keyframes mouse-scroll {
+      0%   { opacity: 1;   top: 28%; }
+      50%  { opacity: 0.3; top: 48%; }
+      100% { opacity: 1;   top: 28%; }
     }
     .cover-scroll-arrow {
       width: 1px;
-      height: 38px;
-      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.28));
+      height: 28px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.18), transparent);
       animation: arrow-bob 1.9s ease-in-out infinite;
     }
     @keyframes arrow-bob { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(8px);opacity:0.35} }
@@ -548,8 +586,11 @@
     </div>
   </div>
   <div class="cover-scroll reveal">
-    <span>Scrollen</span>
+    <div class="apple-mouse">
+      <div class="apple-mouse-dot"></div>
+    </div>
     <div class="cover-scroll-arrow"></div>
+    <span>Scrollen</span>
   </div>
 </section>
 
@@ -1187,7 +1228,7 @@
     <a href="mailto:anfrage@praxisecht.de?subject=Anfrage%20neue%20Website%20%2F%20Denise%20Stellmann" class="btn-f-gold">
       Gespräch anfragen →
     </a>
-    <a href="https://amaeding80.github.io/denise_stellmann" target="_blank" class="btn-f-ghost">
+    <a href="https://amaeding80.github.io/denise_stellmann" onclick="window.open('https://amaeding80.github.io/denise_stellmann','_blank'); return false;" class="btn-f-ghost">
       Konzept ansehen
     </a>
   </div>
