@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website-Analyse – denisestellmann.de</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #F8F3EB; color: #2A2420; overflow-x: hidden; }
+
+    :root {
+      --cream:      #F8F3EB;
+      --cream-mid:  #EDE7DA;
+      --cream-deep: #E3DAC9;
+      --dark:       #1C1410;
+      --text:       #2A2420;
+      --muted:      #6B5E52;
+      --gold:       #B8923A;
+      --gold-light: #D4AA5A;
+      --gold-pale:  #F0E2C0;
+      --amber:      #C8952A;
+      --green:      #4A7C59;
+      --green-pale: #EAF2EC;
+    }
+
+    /* ─── REVEAL ─── */
+    .reveal       { opacity:0; transform:translateY(24px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible      { opacity:1; transform:translateY(0); }
+    .reveal-left  { opacity:0; transform:translateX(-32px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .reveal-left.visible { opacity:1; transform:translateX(0); }
+    .reveal-right { opacity:0; transform:translateX(32px);  transition:opacity 0.65s ease, transform 0.65s ease; }
+    .reveal-right.visible{ opacity:1; transform:translateX(0); }
+    .reveal-delay-1 { transition-delay:0.10s; }
+    .reveal-delay-2 { transition-delay:0.20s; }
+    .reveal-delay-3 { transition-delay:0.33s; }
+    .reveal-delay-4 { transition-delay:0.48s; }
+
+    /* ─── COVER ─── */
+    .cover {
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(184,146,58,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 30%, rgba(200,149,42,0.08) 0%, transparent 50%);
+    }
+    .cover-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 7px 20px;
+      border-radius: 100px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .cover-domain {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cover-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7.5vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: #fff;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .cover-headline em { color: var(--gold-light); font-style: italic; }
+    .cover-sub {
+      font-size: clamp(0.88rem, 1.4vw, 1.05rem);
+      color: rgba(255,255,255,0.45);
+      margin: 18px auto 52px;
+      max-width: 480px;
+      line-height: 1.75;
+      position: relative;
+    }
+    .cover-counts {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      margin-bottom: 56px;
+    }
+    .count-chip { text-align: center; }
+    .count-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.4rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .count-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.32);
+      margin-top: 5px;
+    }
+    .cover-scroll {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+    .cover-scroll-arrow {
+      width: 1px;
+      height: 38px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.28));
+      animation: arrow-bob 1.9s ease-in-out infinite;
+    }
+    @keyframes arrow-bob { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(8px);opacity:0.35} }
+
+    /* ─── SECTIONS ─── */
+    .section-wrap { padding: 80px 40px; }
+    .section-wrap--mid  { background: var(--cream-mid); }
+    .section-wrap--deep { background: var(--cream-deep); }
+    .section-wrap--cream{ background: var(--cream); }
+
+    .section-label {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-label--green { color: var(--green); }
+
+    /* ─── ÜBERSICHT ─── */
+    .overview-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 44px;
+      max-width: 600px;
+      line-height: 1.2;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 10px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .problem-chip {
+      background: rgba(184,146,58,0.07);
+      border: 1px solid rgba(184,146,58,0.22);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .problem-chip:hover { background: rgba(184,146,58,0.13); border-color: rgba(184,146,58,0.4); }
+    .chip-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .chip-text { font-size: 0.84rem; color: var(--muted); line-height: 1.45; padding-top: 3px; }
+
+    /* ─── NEUER HERO ─── */
+    .new-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .new-hero-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 36px; }
+
+    .browser-frame {
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(28,20,16,0.14), 0 0 0 1px rgba(184,146,58,0.18);
+    }
+    .bf-bar {
+      background: #E8E0D4;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(184,146,58,0.15);
+    }
+    .bf-dots { display: flex; gap: 6px; }
+    .bf-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .bf-dot-r { background: #FF5F57; }
+    .bf-dot-y { background: #FEBC2E; }
+    .bf-dot-g { background: #28C840; }
+    .bf-url {
+      flex: 1;
+      background: rgba(255,255,255,0.6);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+    .bf-badge {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--green);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    /* Embedded Hero */
+    .embedded-hero { font-family: 'Inter', sans-serif; background: #F5F0E8; }
+    .eh-nav {
+      background: rgba(245,240,232,0.97);
+      border-bottom: 1px solid rgba(184,146,58,0.15);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .eh-logo { font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:#1C1410; letter-spacing:0.05em; }
+    .eh-logo span { color:#B8923A; }
+    .eh-navlinks { display:flex; gap:24px; list-style:none; }
+    .eh-navlinks a { font-size:0.72rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#6B5E52; text-decoration:none; }
+    .eh-cta { background:#1C1410; color:#F5F0E8 !important; padding:8px 18px; border-radius:2px; font-size:0.68rem !important; }
+    .eh-hero { display:grid; grid-template-columns:1fr 1fr; min-height:360px; }
+    .eh-text { padding:48px 40px; display:flex; flex-direction:column; justify-content:center; }
+    .eh-eyebrow { font-size:0.65rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:#B8923A; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+    .eh-eyebrow::before { content:''; width:24px; height:1px; background:#B8923A; display:inline-block; }
+    .eh-h1 { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; line-height:1.1; color:#1C1410; margin-bottom:16px; }
+    .eh-h1 em { font-style:italic; color:#B8923A; }
+    .eh-sub { font-family:'Cormorant Garamond',serif; font-size:1rem; font-style:italic; color:#6B5E52; margin-bottom:28px; line-height:1.6; }
+    .eh-roles { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
+    .eh-role { font-size:0.62rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:#6B5E52; padding:5px 12px; border:1px solid rgba(107,94,82,0.3); }
+    .eh-actions { display:flex; gap:12px; }
+    .eh-btn-p { background:#1C1410; color:#F5F0E8; padding:11px 24px; font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; border-radius:2px; }
+    .eh-btn-g { color:#2A2420; font-size:0.7rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; padding:11px 0; border-bottom:1px solid rgba(42,36,32,0.3); }
+    .eh-image { position:relative; overflow:hidden; background:#1C1410; }
+    .eh-image img { width:100%; height:100%; object-fit:cover; object-position:center top; filter:grayscale(15%) contrast(1.05) brightness(0.92); }
+    .eh-image-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(28,20,16,0.4) 0%, transparent 50%); }
+
+    /* ─── PROBLEM LAYOUTS ─── */
+    .problem-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .problem-layout--flip { direction:rtl; }
+    .problem-layout--flip > * { direction:ltr; }
+
+    .problem-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      font-weight: 300;
+      color: rgba(184,146,58,0.20);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .problem-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+    .problem-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+    /* Vorschlag-Box (statt Impact) */
+    .suggestion-box {
+      background: rgba(74,124,89,0.07);
+      border-left: 3px solid var(--green);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+    }
+    .suggestion-label {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .suggestion-box p {
+      font-size: 0.85rem;
+      color: #3E5C48;
+      line-height: 1.65;
+    }
+
+    /* ─── BROWSER-MOCKUPS ─── */
+    .problem-browser {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(28,20,16,0.10), 0 0 0 1px rgba(184,146,58,0.18);
+    }
+    .pb-bar {
+      background: #E8E0D4;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(184,146,58,0.12);
+    }
+    .pb-dots { display:flex; gap:5px; }
+    .pb-dot { width:10px; height:10px; border-radius:50%; }
+    .pb-url { flex:1; background:rgba(255,255,255,0.55); border-radius:4px; padding:4px 10px; font-size:0.7rem; color:var(--muted); }
+    .pb-body { background:#FAFAF7; padding:20px; position:relative; min-height:200px; }
+
+    /* Annotation — warm amber statt Rot */
+    .anno {
+      position: absolute;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--amber);
+      background: rgba(200,149,42,0.12);
+      color: var(--amber);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      animation: anno-glow 2.2s ease-in-out infinite;
+    }
+    @keyframes anno-glow {
+      0%,100%{ box-shadow:0 0 0 0 rgba(200,149,42,0.25); }
+      50%    { box-shadow:0 0 0 7px rgba(200,149,42,0); }
+    }
+
+    /* Mockup: Hero ohne CTA */
+    .hero-mock {
+      background: linear-gradient(135deg, #e8e4df 0%, #d5cfc5 100%);
+      padding: 22px;
+      text-align: center;
+      min-height: 155px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-mock-name { font-size:1.05rem; font-weight:600; color:#333; font-family:serif; }
+    .hero-mock-title { font-size:0.72rem; color:#777; margin:6px 0 14px; }
+    .hero-mock-nav { display:flex; gap:10px; justify-content:center; }
+    .hero-mock-link { font-size:0.68rem; color:#666; text-decoration:underline; }
+    .missing-badge {
+      position: absolute;
+      bottom: 14px; right: 14px;
+      background: rgba(200,149,42,0.12);
+      border: 1px solid rgba(200,149,42,0.35);
+      color: var(--amber);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Mockup: Externe Links */
+    .ext-link-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+    .ext-item { padding:12px; border-bottom:1px solid #e8e3dc; border-right:1px solid #e8e3dc; position:relative; background:#FAFAF7; }
+    .ext-item:nth-child(even) { border-right:none; }
+    .ext-title { font-size:0.76rem; font-weight:600; color:#333; margin-bottom:4px; }
+    .ext-link-tag { font-size:0.62rem; color:#9B7A3A; text-decoration:underline; }
+    .ext-arrow { position:absolute; top:8px; right:8px; width:16px; height:16px; background:rgba(200,149,42,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.55rem; color:var(--amber); }
+
+    /* Mockup: Nav mit Testing */
+    .nav-mock-bar { background:#fff; border-bottom:1px solid #e8e3dc; padding:10px 16px; display:flex; align-items:center; justify-content:space-between; position:relative; }
+    .nav-mock-logo { font-size:0.85rem; font-weight:600; color:#1a1a1a; }
+    .nav-mock-items { display:flex; gap:12px; }
+    .nav-mock-item { font-size:0.72rem; color:#555; }
+    .nav-mock-test { font-size:0.72rem; color:var(--amber); border-bottom:1px dashed rgba(200,149,42,0.5); }
+
+    /* Mockup: Portfolio */
+    .portfolio-grid { display:grid; grid-template-columns:1fr 1fr 1fr; }
+    .portfolio-item { aspect-ratio:4/3; background:#EDE7DA; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; border:0.5px solid #ddd; }
+    .portfolio-item-title { font-size:0.62rem; color:#888; text-align:center; padding:8px; }
+    .portfolio-ext-badge { position:absolute; bottom:0; left:0; right:0; background:rgba(200,149,42,0.18); color:#9B7A3A; font-size:0.56rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; padding:3px 6px; text-align:center; border-top:1px solid rgba(200,149,42,0.25); }
+
+    /* Mockup: Über mich fehlt */
+    .about-bio-placeholder { background:var(--cream-mid); border-radius:6px; padding:24px; text-align:center; }
+    .about-icon { font-size:2rem; margin-bottom:8px; }
+    .about-missing-text { font-size:0.75rem; color:#888; }
+
+    /* Mockup: Typografie */
+    .typo-mock { padding:16px; }
+    .typo-h1 { font-size:1.15rem; font-family:'Times New Roman',serif; color:#222; margin-bottom:6px; }
+    .typo-p { font-size:0.78rem; color:#666; font-family:Arial,sans-serif; line-height:1.5; }
+
+    /* Mockup: SEO */
+    .seo-mock { padding:16px; }
+    .seo-result { margin-bottom:12px; }
+    .seo-url { font-size:0.68rem; color:#1a6322; }
+    .seo-title { font-size:0.88rem; color:#1a0dab; font-weight:500; }
+    .seo-desc { font-size:0.72rem; color:#555; line-height:1.4; margin-top:2px; }
+    .seo-missing { background:rgba(200,149,42,0.07); border:1px dashed rgba(200,149,42,0.35); border-radius:4px; padding:10px 12px; margin-top:8px; }
+    .seo-missing-label { font-size:0.63rem; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:0.1em; }
+    .seo-missing-text { font-size:0.72rem; color:#9B7A3A; font-style:italic; margin-top:3px; }
+
+    /* Mockup: Footer WP */
+    .wp-footer-strip { background:#6B5E52; padding:6px 12px; font-size:0.65rem; color:rgba(255,255,255,0.65); text-align:center; position:relative; }
+
+    /* Mockup: Performance */
+    .perf-score {
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      padding: 20px;
+    }
+    .perf-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .perf-circle--unknown { background: #f0ede8; color: #999; border: 3px solid #e0d8cc; }
+    .perf-circle--good { background: var(--green-pale); color: var(--green); border: 3px solid rgba(74,124,89,0.3); }
+    .perf-metrics { flex: 1; }
+    .perf-metric { display:flex; justify-content:space-between; font-size:0.72rem; color:#666; padding:4px 0; border-bottom:1px solid #ede7da; }
+    .perf-metric:last-child { border-bottom:none; }
+    .perf-metric-val { font-weight:600; color:var(--green); }
+
+    /* ─── ABSCHLUSS ─── */
+    .finale { background:var(--dark); padding:100px 40px; text-align:center; }
+    .finale-headline { font-family:'Cormorant Garamond',serif; font-size:clamp(2.5rem,5vw,4.2rem); font-weight:300; color:#fff; margin-bottom:16px; }
+    .finale-sub { font-size:1rem; color:rgba(255,255,255,0.45); max-width:480px; margin:0 auto 56px; line-height:1.75; }
+    .finale-counts { display:flex; gap:44px; justify-content:center; flex-wrap:wrap; margin-bottom:56px; }
+    .finale-count { text-align:center; }
+    .finale-count-num { font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:300; color:var(--gold-light); line-height:1; }
+    .finale-count-label { font-size:0.67rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.32); margin-top:4px; }
+    .finale-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:56px; }
+    .btn-f-gold {
+      background: var(--gold);
+      color: #fff;
+      padding: 15px 36px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-f-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-f-ghost {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.65);
+      padding: 15px 36px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-f-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .finale-footer { font-size:0.73rem; color:rgba(255,255,255,0.2); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .problem-layout { grid-template-columns:1fr; gap:32px; }
+      .problem-layout--flip { direction:ltr; }
+      .eh-hero { grid-template-columns:1fr; }
+      .eh-image { height:240px; }
+      .ext-link-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width: 600px) {
+      .section-wrap { padding:56px 20px; }
+      .eh-text { padding:28px 20px; }
+      .eh-navlinks { display:none; }
+      .portfolio-grid { grid-template-columns:1fr 1fr; }
+      .cover-counts { gap:28px; }
+      .finale { padding:60px 20px; }
+      .finale-counts { gap:28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     COVER
+══════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-badge reveal">Website-Analyse · Akquise-Unterlage</div>
+  <p class="cover-domain reveal reveal-delay-1">denisestellmann.de</p>
+  <h1 class="cover-headline reveal reveal-delay-2">
+    <em>10</em> Möglichkeiten.
+  </h1>
+  <p class="cover-sub reveal reveal-delay-3">
+    Eine freundliche Analyse der aktuellen Website — und ein erster Entwurf, wie sie noch mehr Wirkung entfalten könnte.
+  </p>
+  <div class="cover-counts reveal reveal-delay-4">
+    <div class="count-chip">
+      <div class="count-num">10</div>
+      <div class="count-label">Verbesserungsideen</div>
+    </div>
+    <div class="count-chip">
+      <div class="count-num">1</div>
+      <div class="count-label">Konzept-Entwurf</div>
+    </div>
+    <div class="count-chip">
+      <div class="count-num">0</div>
+      <div class="count-label">€ Vorauszahlung</div>
+    </div>
+  </div>
+  <div class="cover-scroll reveal">
+    <span>Scrollen</span>
+    <div class="cover-scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ÜBERSICHT
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--mid">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p class="section-label reveal">Alle Ideen im Überblick</p>
+    <h2 class="overview-title reveal reveal-delay-1">Was wir auf denisestellmann.de entdeckt haben — und was noch mehr möglich wäre:</h2>
+    <div class="problem-grid">
+      <div class="problem-chip reveal reveal-delay-1"><span class="chip-num">1</span><span class="chip-text">Kein CTA-Button im Hero — Besucher wissen nicht, was sie tun sollen</span></div>
+      <div class="problem-chip reveal reveal-delay-2"><span class="chip-num">2</span><span class="chip-text">Portfolio-Klicks führen sofort auf externe Seiten</span></div>
+      <div class="problem-chip reveal reveal-delay-3"><span class="chip-num">3</span><span class="chip-text">Keine kreative "Über mich"-Seite mit eigener Vision</span></div>
+      <div class="problem-chip reveal reveal-delay-4"><span class="chip-num">4</span><span class="chip-text">Kontakt nur als kleine Icons — kein "Projekt anfragen"-Button</span></div>
+      <div class="problem-chip reveal reveal-delay-1"><span class="chip-num">5</span><span class="chip-text">Projekte ohne Einordnung, ohne Rolle, ohne Kontext</span></div>
+      <div class="problem-chip reveal reveal-delay-2"><span class="chip-num">6</span><span class="chip-text">Keine sichtbare Navigation — Besucher finden keine Orientierung</span></div>
+      <div class="problem-chip reveal reveal-delay-3"><span class="chip-num">7</span><span class="chip-text">Generisches Theme — keine eigene visuelle Sprache</span></div>
+      <div class="problem-chip reveal reveal-delay-4"><span class="chip-num">8</span><span class="chip-text">Typografie ohne künstlerische Identität</span></div>
+      <div class="problem-chip reveal reveal-delay-1"><span class="chip-num">9</span><span class="chip-text">Kein SEO-optimierter Seitentitel oder Meta-Description</span></div>
+      <div class="problem-chip reveal reveal-delay-2"><span class="chip-num">10</span><span class="chip-text">Keine Performance-Optimierung — WordPress lädt langsamer als nötig</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     NEUER HERO
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--cream">
+  <div style="max-width:1100px;margin:0 auto 36px;">
+    <p class="section-label section-label--green reveal">Ein erster Entwurf</p>
+    <h2 class="new-hero-title reveal reveal-delay-1">So könnte es aussehen</h2>
+    <p class="new-hero-sub reveal reveal-delay-2">Konzept "Cinematic Warmth" · Warmes Creme, tiefes Anthrazit, gedämpftes Gold</p>
+  </div>
+  <div class="browser-frame reveal">
+    <div class="bf-bar">
+      <div class="bf-dots">
+        <div class="bf-dot bf-dot-r"></div>
+        <div class="bf-dot bf-dot-y"></div>
+        <div class="bf-dot bf-dot-g"></div>
+      </div>
+      <div class="bf-url">🔒 denisestellmann.de · Neues Design</div>
+      <span class="bf-badge">Konzept-Vorschau</span>
+    </div>
+    <div class="embedded-hero">
+      <nav class="eh-nav">
+        <div class="eh-logo">Denise <span>Stellmann</span></div>
+        <ul class="eh-navlinks">
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Über mich</a></li>
+          <li><a href="#">Film</a></li>
+          <li><a href="#" class="eh-cta">Projekt anfragen</a></li>
+        </ul>
+      </nav>
+      <div class="eh-hero">
+        <div class="eh-text">
+          <p class="eh-eyebrow">Hamburg · Deutschland</p>
+          <h1 class="eh-h1">Geschichten,<br>die <em>bewegen</em> —<br>für Bühne & Film.</h1>
+          <p class="eh-sub">Regie, Autorenschaft und Art Direction.<br>Von der Idee bis zur letzten Szene.</p>
+          <div class="eh-roles">
+            <span class="eh-role">Regisseurin</span>
+            <span class="eh-role">Autorin</span>
+            <span class="eh-role">Art Director</span>
+          </div>
+          <div class="eh-actions">
+            <a href="#" class="eh-btn-p">Zum Portfolio</a>
+            <a href="#" class="eh-btn-g">Projekt anfragen →</a>
+          </div>
+        </div>
+        <div class="eh-image">
+          <img src="https://denisestellmann.de/wp-content/uploads/2021/08/Denise-Stellmann-Portrait.jpg"
+               alt="Denise Stellmann Portrait" loading="eager">
+          <div class="eh-image-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 1
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--mid">
+  <div class="problem-layout">
+    <div class="reveal-left">
+      <p class="section-label">Idee #01 · Erster Eindruck</p>
+      <div class="problem-num">01</div>
+      <h3 class="problem-title">Einen CTA-Button in den Hero</h3>
+      <p class="problem-desc">
+        Die aktuelle Startseite begrüßt Besuchende mit Name und Navigation — aber ohne eine klare Einladung, was sie als nächstes tun sollen. Ein einziger Button wie "Portfolio ansehen" oder "Projekt anfragen" würde die Seite sofort lebendiger und führender machen.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Zwei Buttons im Hero: "Zum Portfolio" (primär) und "Projekt anfragen" (sekundär). Das nimmt Besuchern die Entscheidung ab und leitet sie sanft weiter.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">denisestellmann.de</div>
+        </div>
+        <div class="pb-body" style="padding:0; position:relative;">
+          <div class="hero-mock">
+            <div class="hero-mock-name">Denise Stellmann</div>
+            <div class="hero-mock-title">Regie · Autorenschaft · Art Direction</div>
+            <div class="hero-mock-nav">
+              <span class="hero-mock-link">Portfolio</span>
+              <span class="hero-mock-link">Über mich</span>
+              <span class="hero-mock-link">Kontakt</span>
+            </div>
+          </div>
+          <div class="missing-badge">Kein Button vorhanden</div>
+          <div class="anno" style="top:50%;right:16px;transform:translateY(-50%)">?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 2
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--cream">
+  <div class="problem-layout problem-layout--flip">
+    <div class="reveal-right">
+      <p class="section-label">Idee #02 · Portfolio</p>
+      <div class="problem-num">02</div>
+      <h3 class="problem-title">Besucher auf der Seite halten</h3>
+      <p class="problem-desc">
+        Im Portfolio führen die Klicks direkt zu externen Seiten — Artikel, Pressemitteilungen, Drittanbieter. Das Publikum verlässt die Website sofort, bevor es wirklich ankommen konnte. Eigene Projektseiten würden das verhindern.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Für jede Produktion eine kleine eigene Seite (oder ein Lightbox-Overlay) mit Bildern, Kurzbeschreibung und der eigenen Rolle. Externe Links können ergänzend bleiben — aber nicht als einzige Option.</p>
+      </div>
+    </div>
+    <div class="reveal-left">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">denisestellmann.de/portfolio</div>
+        </div>
+        <div class="pb-body" style="padding:0;position:relative;">
+          <div class="ext-link-grid">
+            <div class="ext-item"><div class="ext-title">Theater XY · 2023</div><div class="ext-link-tag">↗ theaterxyz.de/artikel/...</div><div class="ext-arrow">↗</div></div>
+            <div class="ext-item"><div class="ext-title">Film Produktion</div><div class="ext-link-tag">↗ filmdb.example.com/...</div><div class="ext-arrow">↗</div></div>
+            <div class="ext-item"><div class="ext-title">Regie · Bühne 2022</div><div class="ext-link-tag">↗ kulturportal.de/...</div><div class="ext-arrow">↗</div></div>
+            <div class="ext-item"><div class="ext-title">Art Direction</div><div class="ext-link-tag">↗ extern-magazin.de/...</div><div class="ext-arrow">↗</div></div>
+          </div>
+          <div class="anno" style="top:10px;right:10px;">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 3
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--mid">
+  <div class="problem-layout">
+    <div class="reveal-left">
+      <p class="section-label">Idee #03 · Persönlichkeit</p>
+      <div class="problem-num">03</div>
+      <h3 class="problem-title">Die künstlerische Vision sichtbar machen</h3>
+      <p class="problem-desc">
+        Was treibt Denise Stellmann an? Welche Themen, welche Ästhetik, welche Haltung? Diese Antworten fehlen auf der aktuellen Website. Eine "Über mich"-Seite mit echter kreativere Stimme würde das ändern — und Auftraggeber, die auf der Suche nach der richtigen Person sind, direkt ansprechen.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Ein persönlicher Text über künstlerische Haltung, Arbeitsweise und was Denise Stellmann an Theater und Film fasziniert. Ergänzt durch ein gutes Portraitfoto — das gibt der Seite ein Gesicht und eine Stimme.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">denisestellmann.de/about</div>
+        </div>
+        <div class="pb-body" style="position:relative;">
+          <div class="about-bio-placeholder">
+            <div class="about-icon">✍️</div>
+            <div class="about-missing-text">Künstlerische Vision noch nicht beschrieben</div>
+          </div>
+          <div class="anno" style="bottom:16px;right:16px;">?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 4
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--cream">
+  <div class="problem-layout problem-layout--flip">
+    <div class="reveal-right">
+      <p class="section-label">Idee #04 · Kontakt</p>
+      <div class="problem-num">04</div>
+      <h3 class="problem-title">Kontakt-Icons einladen, nicht nur anzeigen</h3>
+      <p class="problem-desc">
+        Die Kontaktmöglichkeiten — Telefon, E-Mail und Instagram — sind direkt im Hero sichtbar, aber nur als kleine Icons ohne Beschriftung. Wer nicht genau hinschaut, übersieht sie leicht. Ein einladender "Projekt anfragen"-Button fehlt ganz.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Die Icons um eine kurze Textzeile ergänzen ("Ruf mich an" / "Schreib mir") und zusätzlich einen gut sichtbaren "Projekt anfragen"-Button einbauen — so wird aus einer stillen Anzeige eine echte Einladung.</p>
+      </div>
+    </div>
+    <div class="reveal-left">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">denisestellmann.de</div>
+        </div>
+        <div class="pb-body" style="padding:0;position:relative;">
+          <div style="background:#1a1a1a;padding:28px 16px 20px;text-align:center;">
+            <div style="font-family:Georgia,serif;font-size:1.1rem;color:#fff;font-weight:300;margin-bottom:4px;">Denise Stellmann</div>
+            <div style="font-size:0.65rem;color:#B8923A;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:18px;">director / author / art director</div>
+            <div style="display:flex;justify-content:center;gap:18px;align-items:center;position:relative;">
+              <div style="width:28px;height:28px;border:1px solid rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:rgba(255,255,255,0.5);">📞</div>
+              <div style="width:28px;height:28px;border:1px solid rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:rgba(255,255,255,0.5);">✉️</div>
+              <div style="width:28px;height:28px;border:1px solid rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:rgba(255,255,255,0.5);">📷</div>
+              <div class="anno" style="top:-8px;right:-8px;font-size:11px;width:22px;height:22px;">?</div>
+            </div>
+            <div style="font-size:0.6rem;color:rgba(255,255,255,0.25);margin-top:8px;font-style:italic;">keine Beschriftung · kein CTA-Button</div>
+          </div>
+          <div style="padding:14px 16px;background:#FAFAF7;text-align:center;">
+            <div style="font-size:0.68rem;color:#bbb;font-style:italic;">— kein "Projekt anfragen"-Button zu finden —</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 5
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--mid">
+  <div class="problem-layout">
+    <div class="reveal-left">
+      <p class="section-label">Idee #05 · Storytelling</p>
+      <div class="problem-num">05</div>
+      <h3 class="problem-title">Projekten eine Stimme geben</h3>
+      <p class="problem-desc">
+        Das Portfolio zeigt Produktionen — aber ohne zu erklären, was daran besonders war. Welche Herausforderung gab es? Was war Denise Stellmanns eigener Beitrag? Drei Sätze pro Projekt können den Unterschied machen.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Kurze Projekttexte: Titel, Jahr, Rolle (Regie / Autorin / Art Director), ein bis zwei Sätze zur Produktion. So entsteht ein Profil, kein Listicle.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">denisestellmann.de/portfolio</div>
+        </div>
+        <div class="pb-body" style="padding:0;position:relative;">
+          <div class="portfolio-grid">
+            <div class="portfolio-item"><div class="portfolio-item-title">Produktion 1<br><span style="font-size:0.52rem;color:#bbb">[Rolle?]</span></div><div class="portfolio-ext-badge">↗ externer Link</div></div>
+            <div class="portfolio-item"><div class="portfolio-item-title">Produktion 2<br><span style="font-size:0.52rem;color:#bbb">[Rolle?]</span></div><div class="portfolio-ext-badge">↗ externer Link</div></div>
+            <div class="portfolio-item"><div class="portfolio-item-title">Produktion 3<br><span style="font-size:0.52rem;color:#bbb">[Rolle?]</span></div><div class="portfolio-ext-badge">↗ externer Link</div></div>
+          </div>
+          <div class="anno" style="top:10px;right:10px;">?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 6
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--cream">
+  <div class="problem-layout problem-layout--flip">
+    <div class="reveal-right">
+      <p class="section-label">Idee #06 · Navigation</p>
+      <div class="problem-num">06</div>
+      <h3 class="problem-title">Keine sichtbare Navigation</h3>
+      <p class="problem-desc">
+        Die Website zeigt keinerlei Menü — weder oben noch seitlich. Ein Besucher, der mehr erfahren möchte, findet keine Orientierung. Wohin kann man klicken? Was gibt es noch? Die Seite lässt diese Fragen offen.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Eine ruhige, minimalistische Navigation am oberen Rand: Portfolio, Über mich, Kontakt — und ein "Projekt anfragen"-Button. Gibt Orientierung, ohne den minimalistischen Stil zu brechen.</p>
+      </div>
+    </div>
+    <div class="reveal-left">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">denisestellmann.de</div>
+        </div>
+        <div class="pb-body" style="padding:0;position:relative;">
+          <div style="background:#FAFAF7;border-bottom:1px solid #ede7da;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:0.85rem;font-weight:600;color:#1a1a1a;">Denise Stellmann</div>
+            <div style="font-size:0.65rem;color:#ccc;font-style:italic;">— kein Menü vorhanden —</div>
+          </div>
+          <div style="padding:20px;background:#FAFAF7;text-align:center;min-height:110px;display:flex;align-items:center;justify-content:center;">
+            <div style="font-size:0.72rem;color:#bbb;">Besucher wissen nicht, wohin sie klicken sollen</div>
+          </div>
+          <div style="padding:10px 14px;background:rgba(200,149,42,0.06);border-top:1px solid rgba(200,149,42,0.15);">
+            <div style="font-size:0.65rem;color:var(--amber);font-weight:600;">Keine Navigationselemente sichtbar</div>
+          </div>
+          <div class="anno" style="top:10px;right:10px;">?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 7
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--mid">
+  <div class="problem-layout">
+    <div class="reveal-left">
+      <p class="section-label">Idee #07 · Identität</p>
+      <div class="problem-num">07</div>
+      <h3 class="problem-title">Eine eigene visuelle Sprache</h3>
+      <p class="problem-desc">
+        Das aktuelle Theme ist ein Standard-WordPress-Layout — sauber, aber ohne Charakter. Schriftart, Farbpalette und Bildaufteilung wirken wie viele andere Kreativwebsites. Dabei hat Denise Stellmann Stoff für eine ganz eigene Bildsprache.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Das Konzept "Cinematic Warmth" gibt der Seite eine unverwechselbare Stimmung: warmes Creme, elegante Serifen-Überschriften (Cormorant Garamond), dezentes Gold als Akzent. Theater- und Filmwelt in einem Design.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">Konzept-Vergleich</div>
+        </div>
+        <div class="pb-body" style="padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:180px;">
+          <div style="padding:16px;border-right:1px solid #e8e3dc;">
+            <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#aaa;margin-bottom:8px;">Aktuell</div>
+            <div class="typo-h1" style="font-size:0.92rem;">Denise Stellmann</div>
+            <div class="typo-p" style="font-size:0.68rem;margin-top:4px;">Standard-Look. Kein Wiedererkennungswert.</div>
+          </div>
+          <div style="padding:16px;background:#F5F0E8;">
+            <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B8923A;margin-bottom:8px;">Konzept</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:#1C1410;font-weight:300;">Denise <span style="color:#B8923A;">Stellmann</span></div>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.72rem;color:#6B5E52;margin-top:5px;">Cinematic Warmth · eigen.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 9
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--mid">
+  <div class="problem-layout">
+    <div class="reveal-left">
+      <p class="section-label">Idee #08 · Typografie</p>
+      <div class="problem-num">08</div>
+      <h3 class="problem-title">Schriften mit Charakter</h3>
+      <p class="problem-desc">
+        Typografie ist das erste Stilmittel einer Seite — noch bevor man ein einziges Bild sieht. Die aktuelle Seite nutzt Standardschriften ohne eigene Atmosphäre. Für jemanden, der Inszenierungen leitet, ist das eine verschenkte Chance.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Cormorant Garamond für Überschriften (theatralisch, elegant) + Inter für Fließtext (klar, modern). Diese Kombination hat Charakter — und passt perfekt zu Bühne und Film.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">Typografie-Vergleich</div>
+        </div>
+        <div class="pb-body typo-mock">
+          <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #e8e3dc;">
+            <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#aaa;margin-bottom:6px;">Aktuell</div>
+            <div class="typo-h1">Denise Stellmann</div>
+            <div class="typo-p">Regie, Autorenschaft und Art Direction.</div>
+          </div>
+          <div>
+            <div style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#B8923A;margin-bottom:6px;">Konzept · Cormorant + Inter</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:#1C1410;">Denise Stellmann</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.85rem;color:#6B5E52;margin-top:4px;">Regie, Autorenschaft und Art Direction.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 10
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--cream">
+  <div class="problem-layout problem-layout--flip">
+    <div class="reveal-right">
+      <p class="section-label">Idee #09 · SEO</p>
+      <div class="problem-num">09</div>
+      <h3 class="problem-title">Leichter in Google gefunden werden</h3>
+      <p class="problem-desc">
+        Wer nach "Regisseurin Hamburg" oder "Art Direction Theater Hamburg" sucht, findet denisestellmann.de im Moment eher nicht. Der Seitentitel und die Beschreibung sind nicht auf Suchmaschinen ausgerichtet — ein paar Zeilen Text können das ändern.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Seitentitel: "Denise Stellmann · Regisseurin & Art Director · Hamburg" — Meta-Description: ein einladender Satz, der beschreibt, was sie tut. Einfach in WordPress einzutragen, mit großer Wirkung.</p>
+      </div>
+    </div>
+    <div class="reveal-left">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">Google-Suchergebnis</div>
+        </div>
+        <div class="pb-body seo-mock" style="position:relative;">
+          <div style="font-size:0.68rem;font-weight:600;color:#6B5E52;margin-bottom:10px;">Suche: "Regisseurin Hamburg"</div>
+          <div class="seo-result">
+            <div class="seo-url">denisestellmann.de</div>
+            <div class="seo-title" style="color:#aaa;">[kein optimierter Titel]</div>
+            <div class="seo-desc" style="color:#bbb;">[keine Meta-Description]</div>
+          </div>
+          <div class="seo-missing">
+            <div class="seo-missing-label">Könnte so aussehen</div>
+            <div class="seo-missing-text">"Denise Stellmann · Regisseurin & Art Director · Hamburg"</div>
+          </div>
+          <div class="anno" style="top:12px;right:12px;">?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 11
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--mid">
+  <div class="problem-layout">
+    <div class="reveal-left">
+      <p class="section-label">Idee #10 · Performance</p>
+      <div class="problem-num">10</div>
+      <h3 class="problem-title">Schnellere Ladezeiten</h3>
+      <p class="problem-desc">
+        WordPress-Seiten tragen oft mehr Ballast als nötig — Plugins, unoptimierte Bilder, mehrere Skripte. Das macht die Seite auf dem Smartphone langsamer. Eine handgebaute Seite ohne unnötige Abhängigkeiten lädt deutlich schneller.
+      </p>
+      <div class="suggestion-box">
+        <div class="suggestion-label">Vorschlag</div>
+        <p>Mit einer kompakten HTML-Seite und optimierten WebP-Bildern sind PageSpeed-Werte von 95–100 auf Desktop erreichbar. Schnell laden = besser in Google + bessere Nutzererfahrung für alle.</p>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div class="pb-dots">
+            <div class="pb-dot" style="background:#FF5F57"></div>
+            <div class="pb-dot" style="background:#FEBC2E"></div>
+            <div class="pb-dot" style="background:#28C840"></div>
+          </div>
+          <div class="pb-url">PageSpeed Insights</div>
+        </div>
+        <div class="pb-body">
+          <div class="perf-score">
+            <div>
+              <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#aaa;margin-bottom:6px;text-align:center;">WordPress</div>
+              <div class="perf-circle perf-circle--unknown">?</div>
+            </div>
+            <div style="font-size:1.2rem;color:#C8A060;">→</div>
+            <div>
+              <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#4A7C59;margin-bottom:6px;text-align:center;">Ziel</div>
+              <div class="perf-circle perf-circle--good">97</div>
+            </div>
+            <div class="perf-metrics">
+              <div class="perf-metric"><span>LCP</span><span class="perf-metric-val">&lt; 1.5s</span></div>
+              <div class="perf-metric"><span>CLS</span><span class="perf-metric-val">&lt; 0.05</span></div>
+              <div class="perf-metric"><span>FCP</span><span class="perf-metric-val">&lt; 1.2s</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROBLEM 11
+══════════════════════════════════════════ -->
+<section class="section-wrap section-wrap--cream">
+  <div class="problem-layout problem-layout--flip">
+    <div class="reveal-right">
+      <p class="section-label">Idee #11 · Portfolio</p>
+      <div class="problem-num">11</div>
+      <h3 class="problem-title">Arbeiten mit Kontext präsentieren</h3>
+      <p class="problem-desc">
+        Die aktuellen Portfolio-Bilder sprechen für sich — aber sie sprechen stumm. Kein Projekttitel, keine Rolle, kein Auftraggeber, keine Entstehungsgeschichte. Wer auf ein Bild klickt, landet sofort auf einer externen Seite, ohne zu wissen, was er dort sucht. Ein Portfolio, das erklärt <em>wer</em> den Auftrag gab, <em>was</em> die Idee dahinter war und <em>welche Rolle</em> Denise gespielt hat, vermittelt Kompetenz — nicht nur Ästhetik.
+      </p>
+      <div class="problem-vorschlag">
+        <div class="vorschlag-label">✦ Vorschlag</div>
+        Jedes Projekt bekommt einen Titel, eine Rollenbeschreibung (z. B. "Art Direction · Regie") und einen kurzen Satz zur Idee dahinter — bevor der externe Link kommt.
+      </div>
+    </div>
+    <div class="reveal-left">
+      <div class="problem-browser">
+        <div class="pb-bar">
+          <div style="display:flex;gap:5px;"><div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div><div style="width:10px;height:10px;border-radius:50%;background:#FEBC2E;"></div><div style="width:10px;height:10px;border-radius:50%;background:#28C840;"></div></div>
+          <div style="background:rgba(255,255,255,0.08);border-radius:4px;padding:3px 10px;font-size:0.6rem;color:rgba(255,255,255,0.35);flex:1;">denisestellmann.de/portfolio</div>
+        </div>
+        <div class="pb-body" style="background:#F5F0E8;padding:16px;position:relative;">
+          <div style="font-size:0.5rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#B8923A;margin-bottom:14px;">a selection of my work</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+
+            <!-- Projekt 1 -->
+            <div style="border-radius:4px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.10);">
+              <div style="height:72px;background:linear-gradient(160deg,#1a1a2e 0%,#2c2c54 40%,#3d3d6b 100%);position:relative;overflow:hidden;">
+                <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(0,0,0,0.55),transparent);"></div>
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:18px;height:1px;background:rgba(255,255,255,0.25);"></div>
+              </div>
+              <div style="background:#fff;padding:7px 9px;">
+                <div style="font-size:0.54rem;font-weight:600;color:#1C1410;margin-bottom:2px;line-height:1.3;">Kurzfilm: Zwischen den Zeilen</div>
+                <div style="font-size:0.44rem;color:#B8923A;font-weight:600;letter-spacing:0.08em;margin-bottom:3px;">REGIE · ART DIRECTION</div>
+                <div style="font-size:0.43rem;color:#8A7A6E;line-height:1.55;">Ein 12-minütiger Film über Erinnerung und Stille. München 2024.</div>
+              </div>
+            </div>
+
+            <!-- Projekt 2 -->
+            <div style="border-radius:4px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.10);">
+              <div style="height:72px;background:linear-gradient(160deg,#2e1a0e 0%,#5c3820 45%,#8a5c35 100%);position:relative;overflow:hidden;">
+                <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);"></div>
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:1px;height:18px;background:rgba(255,255,255,0.2);"></div>
+              </div>
+              <div style="background:#fff;padding:7px 9px;">
+                <div style="font-size:0.54rem;font-weight:600;color:#1C1410;margin-bottom:2px;line-height:1.3;">Drehbuch: Das dritte Fenster</div>
+                <div style="font-size:0.44rem;color:#B8923A;font-weight:600;letter-spacing:0.08em;margin-bottom:3px;">AUTORIN</div>
+                <div style="font-size:0.43rem;color:#8A7A6E;line-height:1.55;">Feature-Länge. Ausgezeichnet beim Autorenwettbewerb München 2023.</div>
+              </div>
+            </div>
+
+            <!-- Projekt 3 -->
+            <div style="border-radius:4px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.10);">
+              <div style="height:72px;background:linear-gradient(160deg,#0f2318 0%,#1e4030 45%,#2d5c44 100%);position:relative;overflow:hidden;">
+                <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);"></div>
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16px;height:16px;border:1px solid rgba(255,255,255,0.2);border-radius:50%;"></div>
+              </div>
+              <div style="background:#fff;padding:7px 9px;">
+                <div style="font-size:0.54rem;font-weight:600;color:#1C1410;margin-bottom:2px;line-height:1.3;">Kampagne: Stille Momente</div>
+                <div style="font-size:0.44rem;color:#B8923A;font-weight:600;letter-spacing:0.08em;margin-bottom:3px;">ART DIRECTION · KONZEPT</div>
+                <div style="font-size:0.43rem;color:#8A7A6E;line-height:1.55;">Visuelle Kampagne für ein Kulturmagazin. Auflage 12.000.</div>
+              </div>
+            </div>
+
+            <!-- Projekt 4 – Coming Soon -->
+            <div style="border-radius:4px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.10);">
+              <div style="height:72px;background:linear-gradient(160deg,#2a3d28 0%,#4a6741 50%,#6b8f60 100%);position:relative;overflow:hidden;">
+                <div style="position:absolute;inset:0;background:rgba(0,0,0,0.28);"></div>
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+                  <div style="font-family:'Cormorant Garamond',serif;font-size:0.62rem;font-weight:300;color:rgba(240,216,154,0.92);letter-spacing:0.22em;text-transform:uppercase;white-space:nowrap;">Coming Soon</div>
+                </div>
+              </div>
+              <div style="background:#fff;padding:7px 9px;">
+                <div style="font-size:0.54rem;font-weight:600;color:#1C1410;margin-bottom:2px;line-height:1.3;">Neues Projekt</div>
+                <div style="font-size:0.44rem;color:#B8923A;font-weight:600;letter-spacing:0.08em;margin-bottom:3px;">REGIE</div>
+                <div style="font-size:0.43rem;color:#8A7A6E;line-height:1.55;">Aktuell in Produktion. Details folgen.</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="anno" style="top:8px;right:10px;background:rgba(74,124,89,0.15);border-color:#4A7C59;color:#4A7C59;font-size:9px;width:18px;height:18px;">✦</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ABSCHLUSS
+══════════════════════════════════════════ -->
+<section class="finale">
+  <p class="section-label section-label--green reveal" style="color:var(--gold-light);">Nächster Schritt</p>
+  <h2 class="finale-headline reveal reveal-delay-1">Bereit für mehr Wirkung?</h2>
+  <p class="finale-sub reveal reveal-delay-2">
+    Dieser Entwurf ist in wenigen Stunden entstanden. Stellen Sie sich vor, was eine vollständig ausgearbeitete Website kommunizieren kann — und was das für Ihre nächsten Auftraggeber bedeutet.
+  </p>
+  <div class="finale-counts reveal reveal-delay-3">
+    <div class="finale-count">
+      <div class="finale-count-num">10</div>
+      <div class="finale-count-label">Ideen umgesetzt</div>
+    </div>
+    <div class="finale-count">
+      <div class="finale-count-num">1</div>
+      <div class="finale-count-label">Klarer erster Eindruck</div>
+    </div>
+    <div class="finale-count">
+      <div class="finale-count-num">∞</div>
+      <div class="finale-count-label">Mehr Sichtbarkeit</div>
+    </div>
+  </div>
+  <div class="finale-actions reveal reveal-delay-4">
+    <a href="mailto:anfrage@praxisecht.de?subject=Anfrage%20neue%20Website%20%2F%20Denise%20Stellmann" class="btn-f-gold">
+      Gespräch anfragen →
+    </a>
+    <a href="index.html" class="btn-f-ghost">
+      Konzept ansehen
+    </a>
+  </div>
+  <div class="finale-footer reveal">
+    Analyse erstellt durch Alexander Mäding · praxisecht.de · © <span id="yr"></span>
+  </div>
+</section>
+
+<script>
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) {
+    io.observe(el);
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

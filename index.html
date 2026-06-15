@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Denise Stellmann – Konzept-Vorschau</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F5F0E8;
+      --warm-bg: #EDE8DE;
+      --dark:    #1C1410;
+      --anthracite: #2A2420;
+      --gold:    #B8923A;
+      --gold-light: #D4AA5A;
+      --muted:   #6B5E52;
+      --text:    #2A2420;
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* DEMO LEISTE */
+    .demo-bar {
+      background: var(--anthracite);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 9px 20px;
+    }
+    .demo-bar span { color: var(--gold-light); }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(184,146,58,0.15);
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta {
+      background: var(--dark);
+      color: var(--cream) !important;
+      padding: 10px 24px;
+      border-radius: 2px;
+      font-size: 0.72rem !important;
+      letter-spacing: 0.12em !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: #fff !important; }
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 72px - 38px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+
+    /* Links: Text */
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 80px;
+      background: var(--cream);
+      position: relative;
+    }
+    .hero-text::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 10%; bottom: 10%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(184,146,58,0.3), transparent);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-headline strong {
+      font-weight: 500;
+      display: block;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      margin: 28px 0 44px;
+      line-height: 1.7;
+      max-width: 400px;
+    }
+
+    .hero-roles {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .hero-role {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 6px 14px;
+      border: 1px solid rgba(107,94,82,0.3);
+      border-radius: 1px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .btn-primary {
+      background: var(--dark);
+      color: var(--cream);
+      padding: 14px 32px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-1px); }
+    .btn-ghost {
+      color: var(--anthracite);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(42,36,32,0.3);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* Rechts: Bild */
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      background: #1C1410;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(15%) contrast(1.05) brightness(0.92);
+      display: block;
+    }
+    .hero-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(245,240,232,0.12) 0%, transparent 30%),
+                  linear-gradient(to top, rgba(28,20,16,0.45) 0%, transparent 50%);
+    }
+    .hero-image-caption {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      right: 32px;
+    }
+    .hero-location {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.55);
+      margin-bottom: 6px;
+    }
+    .hero-city {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.85);
+      letter-spacing: 0.05em;
+    }
+
+    /* Kontakt-Leiste unten */
+    .contact-strip {
+      background: var(--anthracite);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      padding: 18px 60px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: rgba(245,240,232,0.55);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .contact-item:hover { color: var(--gold-light); }
+    .contact-item svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .contact-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1023px) {
+      nav { padding: 0 30px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 55vw; min-height: 300px; }
+      .hero-text { padding: 56px 30px; }
+      .hero-text::after { display: none; }
+    }
+    @media (max-width: 767px) {
+      nav { padding: 0 20px; height: 60px; }
+      .nav-links { display: none; }
+      .hero-text { padding: 40px 20px; }
+      .hero-image { height: 70vw; }
+      .contact-strip { flex-direction: column; gap: 16px; padding: 24px 20px; }
+      .contact-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DEMO-LEISTE -->
+<div class="demo-bar">Konzept-Vorschau · <span>Alexander Mäding</span> · praxisecht.de</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Denise <span>Stellmann</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Portfolio</a></li>
+    <li><a href="#">Über mich</a></li>
+    <li><a href="#">Theaterproduktionen</a></li>
+    <li><a href="#">Film</a></li>
+    <li><a href="#" class="nav-cta">Projekt anfragen</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Text links -->
+  <div class="hero-text">
+    <p class="hero-eyebrow">Hamburg · Deutschland</p>
+    <h1 class="hero-headline">
+      Geschichten,<br>
+      die <em>bewegen</em> —<br>
+      <strong>für Bühne & Film.</strong>
+    </h1>
+    <p class="hero-sub">
+      Regie, Autorenschaft und Art Direction.<br>
+      Von der Idee bis zur letzten Szene.
+    </p>
+    <div class="hero-roles">
+      <span class="hero-role">Regisseurin</span>
+      <span class="hero-role">Autorin</span>
+      <span class="hero-role">Art Director</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Zum Portfolio</a>
+      <a href="#" class="btn-ghost">Projekt anfragen →</a>
+    </div>
+  </div>
+
+  <!-- Bild rechts -->
+  <div class="hero-image">
+    <img src="https://denisestellmann.de/wp-content/uploads/2021/08/Denise-Stellmann-Portrait.jpg"
+         alt="Denise Stellmann Portrait"
+         loading="eager">
+    <div class="hero-image-overlay"></div>
+    <div class="hero-image-caption">
+      <p class="hero-location">Standort</p>
+      <p class="hero-city">Hamburg</p>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT-LEISTE -->
+<div class="contact-strip">
+  <a href="tel:04036027300" class="contact-item">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+    040 36027300
+  </a>
+  <div class="contact-divider"></div>
+  <a href="mailto:kontakt@denisestellmann.de" class="contact-item">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+    kontakt@denisestellmann.de
+  </a>
+  <div class="contact-divider"></div>
+  <a href="https://instagram.com/denisestellmann" target="_blank" class="contact-item">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    @denisestellmann
+  </a>
+</div>
+
+</body>
+</html>
