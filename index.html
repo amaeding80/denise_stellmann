@@ -221,14 +221,38 @@
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      filter: grayscale(15%) contrast(1.05) brightness(0.92);
+      filter: grayscale(30%) contrast(1.05) brightness(0.88);
       display: block;
+      transform: scale(1.0);
+      transition: filter 0.7s ease, transform 0.7s ease;
+    }
+    .hero-image:hover img {
+      filter: grayscale(0%) contrast(1.03) brightness(0.97);
+      transform: scale(1.03);
+    }
+    /* Gold-Duotone Overlay */
+    .hero-image-duotone {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(184,146,58,0.48) 0%, rgba(28,20,16,0.62) 100%);
+      mix-blend-mode: multiply;
+      opacity: 1;
+      transition: opacity 0.7s ease;
+      pointer-events: none;
+    }
+    .hero-image:hover .hero-image-duotone {
+      opacity: 0;
     }
     .hero-image-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(to right, rgba(245,240,232,0.12) 0%, transparent 30%),
                   linear-gradient(to top, rgba(28,20,16,0.45) 0%, transparent 50%);
+      transition: opacity 0.7s ease;
+      pointer-events: none;
+    }
+    .hero-image:hover .hero-image-overlay {
+      opacity: 0.6;
     }
     .hero-image-caption {
       position: absolute;
@@ -340,6 +364,7 @@
     <img src="https://denisestellmann.de/wp-content/uploads/2021/08/Denise-Stellmann-Portrait.jpg"
          alt="Denise Stellmann Portrait"
          loading="eager">
+    <div class="hero-image-duotone"></div>
     <div class="hero-image-overlay"></div>
     <div class="hero-image-caption">
       <p class="hero-location">Standort</p>
